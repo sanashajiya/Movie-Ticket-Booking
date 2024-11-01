@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Seat Selection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background-color: #333;
+            border-radius: 10px;
+            padding: 20px;
+            width: 80%;
+            margin: 0 auto;
+        }
+        h2 {
+            color: orange;
+        }
+        .form-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding-bottom: 20px;
+        }
+        .form-container label {
+            margin-right: 5px;
+        }
+        .seat-container {
+            margin-top: 20px;
+        }
+        .seat {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            margin: 3px;
+            background-color: #ccc; /* Default empty seat color */
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .selected {
+            background-color: green; /* Highlight selected seat in green */
+        }
+        .reserved {
+            background-color: red; /* Reserved seat in red */
+            cursor: not-allowed;
+        }
+        .empty {
+            background-color: white; /* Empty seat in white */
+        }
+        .screen {
+            background-color: orange;
+            padding: 10px;
+            margin: 20px 0;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        .legend div {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .legend .color-box {
+            width: 15px;
+            height: 15px;
+        }
+        .seat-details {
+            margin-top: 20px;
+            background-color: #444;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        table {
+            width: 100%;
+            color: white;
+            margin-top: 15px;
+        }
+        table, th, td {
+            border: 1px solid white;
+            border-collapse: collapse;
+            padding: 10px;
+            text-align: center;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: orange;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Fill The Required Details Below And Select Your Seats</h2>
+    
+    <!-- User Input Form -->
+    <div class="form-container">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" required>
+        </div>
+        <div>
+            <label for="seat-count">Number of Seats:</label>
+            <input type="number" id="seat-count" min="1" max="10" required>
+        </div>
+        <button onclick="startSelection()">Start Selecting</button>
+    </div>
+    
+    <!-- Seat Layout -->
+    <div class="seat-container">
+        <div class="legend">
+            <div><div class="color-box selected"></div>Selected Seat</div>
+            <div><div class="color-box reserved"></div>Reserved Seat</div>
+            <div><div class="color-box empty"></div>Empty Seat</div>
+        </div>
+        <div class="screen">SCREEN THIS WAY</div>
+        <div id="seats">
+            <!-- Seats will be dynamically generated here -->
+        </div>
+    </div>
+
+    <!-- Display Selected Seat Details -->
+    <div class="seat-details">
+        <h3>Selected Seats</h3>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Number of Seats</th>
+                <th>Seats</th>
+            </tr>
+            <tr>
+                <td id="display-name"></td>
+                <td id="display-seat-count"></td>
+                <td id="display-seats"></td>
+            </tr>
+        </table>
+        <button onclick="confirmBooking()">Confirm Booking</button>
+    </div>
+</div>
+
+<script>
+    const maxSeats = 120; // total number of seats
+    let selectedSeats = [];
+    let maxSelection;
+    const reservedSeats = [5, 15, 25, 35, 45, 55]; // Example reserved seats
+
+    // Generate seats
+    function generateSeats() {
+        const seatContainer = document.getElementById('seats');
+        seatContainer.innerHTML = ''; // Clear any existing seats
+        for (let i = 1; i <= maxSeats; i++) {
+            const seat = document.createElement('div');
+            seat.classList.add('seat');
+            if (reservedSeats.includes(i)) {
+                seat.classList.add('reserved'); // Mark reserved seats
+            } else {
+                seat.classList.add('empty'); // Mark empty seats
+                seat.addEventListener('click', () => selectSeat(seat, i)); // Add click event for selection
+            }
+            seat.id = `seat-${i}`;
+            seatContainer.appendChild(seat);
+            if (i % 12 === 0) {
+                seatContainer.appendChild(document.createElement('br')); // Add line breaks after every 12 seats
+            }
+        }
+    }
+
+    // Start seat selection
+    function startSelection() {
+        const name = document.getElementById('name').value;
+        maxSelection = parseInt(document.getElementById('seat-count').value);
+        
+        if (name === "" || isNaN(maxSelection) || maxSelection < 1) {
+            alert("Please fill in your name and the number of seats correctly.");
+            return;
+        }
+        
+        document.getElementById('display-name').innerText = name;
+        document.getElementById('display-seat-count').innerText = maxSelection;
+        selectedSeats = []; // reset selected seats
+        updateSelectedSeatsDisplay();
+        generateSeats(); // Generate seats only after starting selection
+    }
+
+    // Select or deselect seat
+    function selectSeat(seat, seatNumber) {
+        if (!seat.classList.contains('reserved')) {
+            if (seat.classList.contains('selected')) {
+                seat.classList.remove('selected'); // Deselect the seat
+                const seatIndex = selectedSeats.indexOf(seatNumber);
+                selectedSeats.splice(seatIndex, 1); // Remove from selected seats
+            } else {
+                if (selectedSeats.length < maxSelection) {
+                    seat.classList.add('selected'); // Select the seat
+                    selectedSeats.push(seatNumber); // Add to selected seats
+                } else {
+                    alert(`You can only select up to ${maxSelection} seats.`);
+                }
+            }
+            updateSelectedSeatsDisplay();
+        }
+    }
+
+    // Update the displayed selected seats
+    function updateSelectedSeatsDisplay() {
+        document.getElementById('display-seats').innerText = selectedSeats.join(', '); // Show selected seats
+    }
+
+    // Confirm booking
+    function confirmBooking() {
+        if (selectedSeats.length === maxSelection) {
+            alert("Booking Confirmed!");
+            window.location.href = "confirmation-page.html"; // Redirect to confirmation page
+        } else {
+            alert(`Please select ${maxSelection} seats.`);
+        }
+    }
+
+    generateSeats(); // Initial seat generation
+</script>
+
+</body>
+</html>

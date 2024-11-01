@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Details - Movie Ticket Booking</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .movie-poster {
+      max-width: 100%;
+      height: auto;
+    }
+    .details-table th, .details-table td {
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand text-warning font-weight-bold" href="#">Movie Ticket Booking</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link text-light" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" href="about.html">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" href="contact.html">Contact Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" href="all-movies.html">All Movies</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search movies..." aria-label="Search">
+        <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+      </form>
+      <div class="auth-buttons ml-3">
+        <button class="btn btn-warning mr-2">Sign Up</button>
+        <button class="btn btn-outline-light">Login</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Movie Details Section -->
+  <section class="container mt-5">
+    <div class="row">
+      <!-- Movie Poster -->
+      <div class="col-md-5">
+        <img src="movie1.jpg" alt="Movie Poster" class="img-fluid rounded movie-poster">
+      </div>
+      
+      <!-- Movie Details and Description -->
+      <div class="col-md-7">
+        <h2>Movie Title</h2>
+        <!-- Description Row -->
+        <div class="mb-3">
+          <p class="text-muted">A thrilling adventure that takes you on a journey of excitement, suspense, and drama. Discover the unexpected twists and enjoy the remarkable storytelling in this must-watch movie experience.</p>
+        </div>
+        
+        <!-- Details Table -->
+        <table class="table table-striped details-table">
+          <tr>
+            <th>Name:</th>
+            <td>Movie Title</td>
+          </tr>
+          <tr>
+            <th>Trailer:</th>
+            <td><a href="https://www.youtube.com/watch?v=trailer-link" target="_blank">Watch Trailer</a></td>
+          </tr>
+          <tr>
+            <th>Language:</th>
+            <td>English</td>
+          </tr>
+          <tr>
+            <th>Duration:</th>
+            <td>2h 15min</td>
+          </tr>
+          <tr>
+            <th>Select Date:</th>
+            <td>
+              <input type="date" class="form-control" id="date" required>
+            </td>
+          </tr>
+          <tr>
+            <th>Select Time:</th>
+            <td>
+              <select class="form-control" id="time" required>
+                <option>10:00 AM</option>
+                <option>1:00 PM</option>
+                <option>4:00 PM</option>
+                <option>7:00 PM</option>
+                <option>10:00 PM</option>
+              </select>
+            </td>
+          </tr>
+        </table>
+        <a href="book1.html" class="btn btn-primary mt-3">Confirm Booking</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-light text-dark pt-4 pb-4 mt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h5>About Us</h5>
+          <p>At Movie Ticket Booking, we aim to provide the best experience for booking your movie tickets online. Discover the latest movies and enjoy the magic of cinema.</p>
+        </div>
+        <div class="col-md-4">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="index.html" class="text-dark">Home</a></li>
+            <li><a href="about.html" class="text-dark">About Us</a></li>
+            <li><a href="contact.html" class="text-dark">Contact Us</a></li>
+            <li><a href="#" class="text-dark">Terms of Service</a></li>
+            <li><a href="#" class="text-dark">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5>Contact Us</h5>
+          <p>Email: <a href="mailto:support@movieticketbooking.com" class="text-dark">support@movieticketbooking.com</a></p>
+          <p>Phone: <a href="tel:+15551234567" class="text-dark">+1 (555) 123-4567</a></p>
+          <h5>Follow Us</h5>
+          <a href="#" class="text-dark mr-2"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="text-dark mr-2"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-dark"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <hr class="my-4">
+      <div class="text-center">
+        <p>&copy; 2024 Movie Ticket Booking. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

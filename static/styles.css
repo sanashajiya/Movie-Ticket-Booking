@@ -1,0 +1,20 @@
+.auth-buttons .btn {
+    font-size: 0.9em;
+    padding: 5px 12px;
+  }
+  .carousel-item img {
+    height: 500px; /* Adjust height as needed */
+    object-fit: cover; /* Maintain aspect ratio */
+  }
+  .carousel {
+    margin-top: 10px; /* Adjust this value as needed */
+  }
+  .movie-grid {
+    margin-top: 30px; /* Space above grid */
+  }
+  .movie-card {
+    margin-bottom: 20px; /* Space between rows of cards */
+  }
+  
+  
+  
